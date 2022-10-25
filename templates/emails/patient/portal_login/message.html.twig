@@ -1,0 +1,30 @@
+<html>
+    <body>
+        <div class='wrapper'>
+            {% if portal_onsite_two_enable is not empty %}
+                {{ "Dirección web del portal del paciente"|xlt }}:<br />
+                <a href='{{ portal_onsite_two_address|attr }}' target='_blank'>{{ portal_onsite_two_address|text }}</a>
+                <br /><br />
+            {% endif %}
+            <strong>{{ "Nombre de la cuenta"|xlt }}</strong>: {{ uname }}<br /><br />
+            <strong>{{ "Nombre de usuario de inicio de sesión"|xlt }}:</strong> {{ login_uname|text }}
+            <br /><strong>{{ "Contraseña"|xlt }}:</strong>
+            {{ pwd|text }}<br /><br />
+            {% if enforce_signin_email %}
+                <strong>{{ "Email"|xlt  }}</strong>:
+                {% if email_direct is not empty %}
+                    {{  email_direct|text }}
+                {% else %}
+                    {{ "Si lo requiere. Contactar Proveedor."|xlt}}
+                {% endif %}
+            {% endif %}
+            <br /><br />
+            <strong>{{ "Es posible que deba cambiar su contraseña durante el primer inicio de sesión."|xlt }}</strong><br />
+            {{ "Esto es necesario para su seguridad y la nuestra.."|xlt }}<br />
+            {{ "Sin embargo, después, puede cambiar sus credenciales del portal en cualquier momento desde el menú del portal.."|xlt }}<br /><br />
+
+            {% include 'emails/partials/patient/email-message-fhir-access.html.twig' with {fhir_address: fhir_address, fhir_requirements_address: fhir_requirements_address} %}
+            {{ "Gracias por confiar en nosotros."|xlt }}
+        </div>
+    </body>
+</html>
